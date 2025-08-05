@@ -201,9 +201,6 @@
         </a>
         <a href="https://steamcommunity.com/id/yarcator" class="button2">
             <img src="materials\steam.png" alt="Steam">Steam
-	</a>
-        <a class="copy-button" onclick="copyToClipboard('@yarcator')">
-            <img src="materials\geometrydash.png" alt="GeometryDash">Copy GeometryDash
         </a>
     </div>
 
@@ -225,15 +222,6 @@
             document.execCommand('copy');
             document.body.removeChild(tempInput);
             alert('Discord username copied to clipboard!');
-
-	function copyToClipboard(text) {
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('GeometryDash username copied to clipboard!');
 		
         }
 
@@ -247,4 +235,5 @@
     </script>
 </body>
 </html>
+
 
