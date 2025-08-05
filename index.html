@@ -3,230 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:locale" content="en" />
   <meta property="og:title" content="yarcator" />
   <meta property="og:description" content=";)" />
   <meta property="og:image" content="https://yarcator.github.io/materials/avatar.png" />
   <title>yarcator</title>
   <link rel="icon" href="materials/website.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-      transition: all 0.3s ease;
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #f0f0f0;
+      --accent-color: #3498db;
+      --text-color: #333;
+      --card-bg: #ffffff;
+      --hover-bg: #e0e0e0;
     }
 
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f7f9fc;
-      color: #333;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--secondary-color);
+      color: var(--text-color);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 20px;
-      padding: 40px 30px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      justify-content: center;
+      height: 100vh;
       text-align: center;
-      max-width: 420px;
-      width: 100%;
-      transform: translateY(20px);
-      animation: slideUp 0.8s ease forwards;
-    }
-
-    @keyframes slideUp {
-      to { transform: translateY(0); }
+      padding: 20px;
     }
 
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 15px;
-      border: 3px solid #e0e0e0;
-      transition: transform 0.4s ease;
-    }
-
-    .avatar:hover {
-      transform: scale(1.05) rotate(2deg);
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     .name {
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    #time {
-      font-size: 14px;
-      color: #888;
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--primary-color);
     }
 
     .bio {
-      font-size: 16px;
-      margin: 15px 0;
-    }
-
-    .expand-bio {
-      display: block;
-      margin-top: 8px;
-      font-size: 14px;
-      color: #007bff;
-      cursor: pointer;
-    }
-
-    .expand-bio:hover {
-      text-decoration: underline;
+      font-size: 18px;
+      margin: 10px 0 20px;
     }
 
     .bio-expanded {
-      display: none;
-      margin-top: 10px;
-      font-size: 15px;
       white-space: pre-wrap;
+      display: none;
+      font-size: 16px;
+      margin-top: 10px;
     }
 
     .bio-expanded.show {
       display: block;
     }
 
+    .expand-bio {
+      color: var(--accent-color);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .expand-bio:hover {
+      text-decoration: underline;
+    }
+
     .button-container {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 10px;
-      margin-top: 25px;
+      justify-content: center;
     }
 
-    .button, .copy-button {
-      background: #f0f0f0;
-      border: 1px solid #ddd;
-      padding: 10px 15px;
-      border-radius: 10px;
+    .button, .button2, .copy-button {
+      background-color: var(--card-bg);
+      border: 1px solid #ccc;
+      color: var(--text-color);
+      padding: 10px 20px;
+      border-radius: 8px;
       text-decoration: none;
-      color: #333;
-      font-size: 15px;
       display: flex;
       align-items: center;
-      transition: all 0.25s ease;
-      flex: 1 1 140px;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .button:hover, .copy-button:hover {
-      background: #e6e6e6;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    .button:hover, .button2:hover, .copy-button:hover {
+      background-color: var(--hover-bg);
     }
 
-    .button img, .copy-button img {
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-      transform: scale(1);
-      transition: transform 0.3s ease;
+    .button img, .button2 img, .copy-button img {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease;
     }
 
-    .button:hover img, .copy-button:hover img {
-      transform: scale(1.2) rotate(8deg);
+    .active-icon img {
+      transform: scale(1.2) rotate(8deg) !important;
     }
 
-    @media (max-width: 600px) {
-      .card {
-        padding: 30px 20px;
+    @media (max-width: 768px) {
+      .avatar {
+        width: 120px;
+        height: 120px;
       }
 
       .name {
-        font-size: 22px;
+        font-size: 28px;
       }
 
-      .button, .copy-button {
-        font-size: 14px;
-        padding: 10px;
+      .bio {
+        font-size: 16px;
       }
 
-      .button-container {
-        gap: 8px;
+      .button, .button2, .copy-button {
+        font-size: 16px;
+        padding: 8px 16px;
       }
     }
 
-    @media (max-width: 380px) {
-      .button, .copy-button {
-        flex: 1 1 100%;
-      }
-
+    @media (max-width: 480px) {
       .avatar {
         width: 100px;
         height: 100px;
       }
 
       .name {
-        font-size: 20px;
+        font-size: 24px;
       }
 
-      .bio {
+      .button, .button2, .copy-button {
         font-size: 14px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img src="materials/avatar.png" alt="Avatar" class="avatar" />
-    <div class="name">yarcator</div>
-    <div id="time"></div>
+  <img src="materials/avatar.png" alt="Avatar" class="avatar" />
+  <div class="name">yarcator</div>
+  <div class="bio-container">
     <div class="bio">
-      <a class="expand-bio"></a>
-      <div class="bio-expanded"></div>
+      <span id="time"></span><br /><br />
+      <a href="#" class="expand-bio"></a>
+      <span class="bio-expanded">
+      </span>
     </div>
-    <div class="button-container">
-      <a href="https://t.me/yarcator" class="button">
-        <img src="materials/telegram.png" alt="Telegram" />Telegram
-      </a>
-      <a href="https://youtube.com/@yarcator" class="button">
-        <img src="materials/youtube.png" alt="YouTube" />YouTube
-      </a>
-      <a href="#" onclick="copyToClipboard('@sevcator')" class="copy-button">
-        <img src="materials/discord.png" alt="Discord" />Discord
-      </a>
-      <a href="https://github.com/yarcator/" class="button">
-        <img src="materials/github.png" alt="GitHub" />GitHub
-      </a>
-      <a href="https://steamcommunity.com/id/yarcator" class="button">
-        <img src="materials/steam.png" alt="Steam" />Steam
-      </a>
-    </div>
+  </div>
+  <div class="button-container">
+    <a href="https://t.me/yarcator" class="button2">
+      <img src="materials/telegram.png" alt="Telegram" />Telegram
+    </a>
+    <a href="https://youtube.com/@yarcator" class="button">
+      <img src="materials/youtube.png" alt="YouTube" />YouTube
+    </a>
+    <a class="copy-button">
+      <img src="materials/discord.png" alt="Discord" />Discord
+    </a>
+    <a href="https://github.com/yarcator/" class="button2">
+      <img src="materials/github.png" alt="GitHub" />GitHub
+    </a>
+    <a href="https://steamcommunity.com/id/yarcator" class="button2">
+      <img src="materials/steam.png" alt="Steam" />Steam
+    </a>
   </div>
 
   <script>
-    const expandBtn = document.querySelector('.expand-bio');
-    const bio = document.querySelector('.bio-expanded');
-
-    expandBtn.addEventListener('click', () => {
-      bio.classList.toggle('show');
-      expandBtn.textContent = bio.classList.contains('show') ? 'Minimize' : 'More...';
+    // Bio toggle
+    const expandBioButton = document.querySelector('.expand-bio');
+    const bioExpanded = document.querySelector('.bio-expanded');
+    expandBioButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      bioExpanded.classList.toggle('show');
+      expandBioButton.textContent = bioExpanded.classList.contains('show') ? 'Minimize' : 'More...';
     });
 
+    // Discord copy
     function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Discord username copied to clipboard!');
-      });
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      alert('Discord username copied to clipboard!');
     }
 
+    document.querySelector('.copy-button').addEventListener('click', () => {
+      copyToClipboard('@sevcator');
+    });
+
+    // Time updater
     function updateTime() {
       const options = { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit', second: '2-digit' };
       document.getElementById('time').textContent = new Date().toLocaleTimeString('en-GB', options);
@@ -234,6 +207,16 @@
 
     updateTime();
     setInterval(updateTime, 1000);
+
+    // Button animation handlers
+    const buttons = document.querySelectorAll('.button, .copy-button, .button2');
+    buttons.forEach(button => {
+      button.addEventListener('mousedown', () => button.classList.add('active-icon'));
+      button.addEventListener('mouseup', () => button.classList.remove('active-icon'));
+      button.addEventListener('mouseleave', () => button.classList.remove('active-icon'));
+      button.addEventListener('touchstart', () => button.classList.add('active-icon'));
+      button.addEventListener('touchend', () => button.classList.remove('active-icon'));
+    });
   </script>
 </body>
 </html>
