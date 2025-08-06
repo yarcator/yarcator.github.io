@@ -19,22 +19,12 @@
             height: 100vh;
             margin: 0;
             position: relative;
-            background-image: url(materials/background.gif);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: white;
             text-align: center;
         }
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); 
-            z-index: 1;
-        }
+
+        /* body::before removed for white background */
+
         .avatar {
             width: 100px;
             height: 100px;
@@ -62,7 +52,7 @@
             align-items: center;
             gap: 7px;
             z-index: 2;
-	    position: relative;
+            position: relative;
         }
         .button, .button2, .copy-button {
             background-color: rgba(255, 255, 255, 0.2);
@@ -98,27 +88,27 @@
             outline: none;
         }
         .bio-expanded {
-	    display: none;
+            display: none;
             z-index: 2;
-	}
-	.bio-expanded.show {
-	    display: block;
+        }
+        .bio-expanded.show {
+            display: block;
             z-index: 2;
-	}
-	.expand-bio {
-	    text-decoration: none;
-	    color: #fff;
-	    cursor: pointer;
-	    z-index: 2;
-	}
-	.expand-bio:hover {
-	    text-decoration: underline;
-	    z-index: 2;
-	}
-	.bio-expanded {
-	    white-space: pre-wrap;
+        }
+        .expand-bio {
+            text-decoration: none;
+            color: #fff;
+            cursor: pointer;
             z-index: 2;
-	}
+        }
+        .expand-bio:hover {
+            text-decoration: underline;
+            z-index: 2;
+        }
+        .bio-expanded {
+            white-space: pre-wrap;
+            z-index: 2;
+        }
         @media (max-width: 768px) {
             .avatar {
                 width: 160px;
@@ -178,66 +168,65 @@
     <div class="name">yarcator</div>
     <div class="bio-container">
         <div class="bio">
-             <span id="time"></span>
-            <br>
-            <br>
-            <a href="#" class="expand-bio" </a>
+            <span id="time"></span>
+            <br><br>
+            <a href="#" class="expand-bio"></a>
             <span class="bio-expanded">
-
  <3 </span>
         </div>
-    <div class="button-container">
-        <a href="https://t.me/yarcator" class="button2">
-            <img src="materials\telegram.png" alt="Telegram">Telegram
-        </a>
-        <a href="https://youtube.com/@yarcator" class="button">
-            <img src="materials\youtube.png" alt="YouTube">YouTube
-        </a>
-        <a class="copy-button" onclick="copyToClipboard('@yarcator')">
-            <img src="materials\discord.png" alt="Discord">Discord
-        </a>   
-        <a href="https://github.com/yarcator/" class="button2">
-            <img src="materials\github.png" alt="GitHub">GitHub 
-        </a>
-        <a href="https://steamcommunity.com/id/yarcator" class="button2">
-            <img src="materials\steam.png" alt="Steam">Steam
-	</a>   
-        <a href="https://4pda.to/forum/index.php?showuser=12175553" class="button2">
-            <img src="materials\4pda.png" alt="4PDA">4PDA
-        </a>
+        <div class="button-container">
+            <a href="https://t.me/yarcator" class="button2">
+                <img src="materials\telegram.png" alt="Telegram">Telegram
+            </a>
+            <a href="https://youtube.com/@yarcator" class="button">
+                <img src="materials\youtube.png" alt="YouTube">YouTube
+            </a>
+            <a class="copy-button" onclick="copyToClipboard('@yarcator')">
+                <img src="materials\discord.png" alt="Discord">Discord
+            </a>
+            <a href="https://github.com/yarcator/" class="button2">
+                <img src="materials\github.png" alt="GitHub">GitHub 
+            </a>
+            <a href="https://steamcommunity.com/id/yarcator" class="button2">
+                <img src="materials\steam.png" alt="Steam">Steam
+            </a>
+            <a href="https://4pda.to/forum/index.php?showuser=12175553" class="button2">
+                <img src="materials\4pda.png" alt="4PDA">4PDA
+            </a>
+        </div>
+
+        <script>
+            const expandBioButton = document.querySelector('.expand-bio');
+            const bioExpanded = document.querySelector('.bio-expanded');
+
+            expandBioButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                bioExpanded.classList.toggle('show');
+                expandBioButton.textContent = bioExpanded.classList.contains('show') ? 'Minimize' : 'More...';
+            });
+
+            function copyToClipboard(text) {
+                const tempInput = document.createElement('input');
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                alert('Discord username copied to clipboard!');
+            }
+
+            function updateTime() {
+                const options = { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                document.getElementById('time').textContent = new Date().toLocaleTimeString('en-GB', options);
+            }
+
+            updateTime();
+            setInterval(updateTime, 1000);
+        </script>
     </div>
-
-    <script>
-        const expandBioButton = document.querySelector('.expand-bio');
-	const bioExpanded = document.querySelector('.bio-expanded');
-
-	expandBioButton.addEventListener('click', (e) => {
-		e.preventDefault();
-		bioExpanded.classList.toggle('show');
-		expandBioButton.textContent = bioExpanded.classList.contains('show')? 'Minimize' : 'More...';
-	});
-        
-        function copyToClipboard(text) {
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Discord username copied to clipboard!');
-		
-        }
-
-        function updateTime() {
-            const options = { timeZone: 'Europe/Moscow', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('time').textContent = new Date().toLocaleTimeString('en-GB', options);
-        }
-
-        updateTime();
-        setInterval(updateTime, 1000);
-    </script>
 </body>
 </html>
+       
 
 
 
